@@ -2,15 +2,18 @@ import { Heart } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { productType } from '@/types';
 
-const ProductCard = () => {
+
+const ProductCard = (product: productType) => {
+
     return (
-        <Card className="w-[300px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow relative px-0">
+        <Card className="w-[300px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow relative px-0 mx-auto">
             <CardHeader>
-                <CardTitle className="text-xl">AirPods Pro</CardTitle>
+                <CardTitle className="text-xl">{product.name}</CardTitle>
                 <CardDescription className="flex justify-between items-center">
-                    <span className="text-2xl font-bold text-green-700">$249.99</span>
-                    <span className="text-sm text-gray-500">100 units available</span>
+                    <span className="text-2xl font-bold text-green-700">${product.price}</span>
+                    <span className="text-sm text-gray-500">{product.stock} units available</span>
                 </CardDescription>
             </CardHeader>
 
@@ -31,9 +34,8 @@ const ProductCard = () => {
                 </Button>
             </CardFooter>
 
-
             <div className="px-6 pb-4 text-xs text-gray-400 text-right">
-                Added: August 12, 2025
+                {formatAddedDate(product.createdAt)}
             </div>
 
         </Card>
@@ -41,3 +43,12 @@ const ProductCard = () => {
 };
 
 export default ProductCard;
+
+function formatAddedDate(isoString: string): string {
+    const date = new Date(isoString);
+    return `Added: ${new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    }).format(date)}`;
+}
