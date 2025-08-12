@@ -1,39 +1,59 @@
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { authUtils } from '@/utils/login';
 
 const Login = () => {
     const navigate = useNavigate()
     const [register, setRegister] = useState<"login" | 'register'>('login');
-    // const auth = useMutation({
-    //     mutationFn: authUtils.auth,
-    //     onSuccess: () => {
-    //         toast.success('Muvaffaqiyatli kirildi ✅')
-    //         setTimeout(() => {
-    //             navigate('/dashboard')
-    //         }, 1000)
-    //     },
-    //     onError: (err) => {
-    //         console.log(err);
-    //         toast.error('Login yoki parolda xatolik ❌ ')            
-    //     }
-    // })
+    const login = useMutation({
+        mutationFn: authUtils.login,
+        onSuccess: () => {
+            toast.success('Muvaffaqiyatli kirildi ✅')
+            setTimeout(() => {
+                navigate('/dashboard')
+            }, 1000)
+        },
+        onError: (err) => {
+            console.log(err);
+            toast.error('Login yoki parolda xatolik ❌ ')
+        }
+    })
+
+    const registerFn = useMutation({
+        mutationFn: authUtils.register,
+        onSuccess: () => {
+            toast.success('Muvaffaqiyatli kirildi ✅')
+            setTimeout(() => {
+                navigate('/dashboard')
+            }, 1000)
+        },
+        onError: (err) => {
+            console.log(err);
+            toast.error('Login yoki parolda xatolik ❌ ')
+        }
+    })
+
 
 
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const form = e.target as HTMLFormElement;
-        try {
-            // auth.mutate({
-            //     login: form.login.value,
-            //     password: form.password.value,
-            // })
-            localStorage.setItem("token", 'sdwvewrverwvw');
-            navigate('/dashboard')
-            toast.success('Muvaffaqiyatli kirildi ✅', form.login.value)
-        } catch (err) {
-            console.log(err);
-        }
+        login.mutate({
+            password: form.password.value,
+            username: form.username.value,
+        })
+    }
+    const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const form = e.target as HTMLFormElement;
+        registerFn.mutate({
+            username: form.username.value,
+            password: form.password.value,
+            email: form.email.value
+        })
+        console.log(login.variables);
     }
 
     return (
@@ -49,11 +69,11 @@ const Login = () => {
                             register === 'login' && <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleLogin}>
                                 <div>
                                     <label htmlFor="login" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                    <input autoCapitalize='username' type="text" name="login" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Login" required />
+                                    <input autoCapitalize='username' type="text" name="username" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Login" required />
                                 </div>
                                 <div>
                                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input autoComplete="current-password" type="password" name="password" id="password" placeholder="*********" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                    <input minLength={6} autoComplete="current-password" type="password" name="password" id="password" placeholder="*********" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                                 </div>
                                 <button type="submit" className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-[18px] cursor-pointer">Login</button>
                                 <div className="flex items-center gap-x-3 justify-center">
@@ -63,18 +83,18 @@ const Login = () => {
                             </form>
                         }
                         {
-                            register === 'register' && <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleLogin}>
+                            register === 'register' && <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleRegister}>
                                 <div>
                                     <label htmlFor="login" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                    <input autoCapitalize='username' type="text" name="login" id="login" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username" required />
+                                    <input autoCapitalize='username' type="text" name="login" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username" required />
                                 </div>
                                 <div>
                                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input autoComplete="current-password" type="password" name="password" id="password" placeholder="*********" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                    <input minLength={6} autoComplete="current-password" type="password" name="password" id="password" placeholder="*********" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                                 </div>
                                 <div>
                                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input autoComplete="current-email" type="email" name="email" id="password" placeholder="example@gmail.com" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                    <input autoComplete="current-email" type="email" name="email" id="email" placeholder="example@gmail.com" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                                 </div>
                                 <button type="submit" className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-[18px] cursor-pointer">Register</button>
                                 <div className="flex items-center gap-x-3 justify-center">
