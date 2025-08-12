@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./layout/Root";
 import Auth from "./pages/login";
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import Home from "./pages/home";
 
@@ -9,16 +9,20 @@ import Home from "./pages/home";
 
 const router = createBrowserRouter([
   {
-    path:'/',
-    element: <Root/>,
+    path: '/',
+    element: <Root />,
     children: [
       {
         index: true,
-        element: <Auth/>
+        element: <Home />
       },
       {
         path: 'dashboard',
-        element: <Home/>
+        element: <Home />
+      },
+      {
+        path: 'register',
+        element: <Auth />
       }
     ]
   }
@@ -30,8 +34,8 @@ const App = () => {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router}/>
-        <Toaster/>
+        <RouterProvider router={router} />
+        <Toaster />
       </QueryClientProvider>
     </div>
   );
