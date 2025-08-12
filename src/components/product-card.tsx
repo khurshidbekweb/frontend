@@ -3,9 +3,23 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { productType } from '@/types';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/redux/store';
+import { addToBasket, toggleHeart } from '@/redux/basketHeartSlice';
 
 const ProductCard = (product: productType) => {
+
+    const dispatch = useDispatch()
+    const basket = useSelector((action: RootState) => action.basketHeart.basket)
+    const heart = useSelector((action: RootState) => action.basketHeart.heart)
+
+
+    console.log(basket);
+    console.log(heart);
+
+
+
+    const isLiked = heart.some(item => item.id === product.id);
 
     return (
         <Card className="w-[300px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow relative px-0 mx-auto">
@@ -35,9 +49,10 @@ const ProductCard = (product: productType) => {
             </div>
 
             <CardFooter className="flex justify-between items-center">
-                <Button className="flex-1 mr-2">Add to Cart</Button>
-                <Button variant="outline" size="icon">
-                    <Heart className="h-4 w-4" />
+                <Button onClick={() => dispatch(addToBasket(product))} className="flex-1 mr-2">Add to Cart</Button>
+                <Button onClick={() => dispatch(toggleHeart(product))} variant="outline" size="icon">
+
+                    {isLiked ? <Heart className="h-4 w-4 text-red-600 fill-current" /> : <Heart className="h-4 w-4" />}
                 </Button>
             </CardFooter>
 
