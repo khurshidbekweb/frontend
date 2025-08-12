@@ -20,10 +20,6 @@ export const authUtils = {
             username,
             password,
             email
-        }, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
         })
         localStorage.setItem("token", data?.token);
         return data

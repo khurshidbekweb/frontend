@@ -10,24 +10,24 @@ import { changeLanguage } from "@/i18n";
 type Language = 'uz' | 'ru' | 'en';
 
 const Navbar = () => {
-    
-    const {t} = useTranslation()
+
+    const { t } = useTranslation()
     const language = localStorage.getItem("language") || "uz";
     console.log(language);
     const token = localStorage.getItem('token')
     const naviagte = useNavigate()
     useEffect(() => {
-      if(!token){
-        naviagte('/')
-      }
-    },[naviagte, token])
-    
+        if (!token) {
+            naviagte('/')
+        }
+    }, [naviagte, token])
+
     return (
         <div className="max-w-7xl mx-auto">
             <div className=" flex items-center justify-between my-2">
-                <h1 className="text-2xl font-serif">{t('hello')}</h1>
+                <h1 className="text-2xl font-serif">{t('logo')}</h1>
                 <div className="flex items-center gap-3">
-                    <Select onValueChange={(value:string) => changeLanguage(value as Language)}>
+                    <Select onValueChange={(value: string) => changeLanguage(value as Language)}>
                         <SelectTrigger className="w-[70px]">
                             <SelectValue placeholder={language} />
                         </SelectTrigger>
@@ -37,12 +37,14 @@ const Navbar = () => {
                             <SelectItem value="en">en</SelectItem>
                         </SelectContent>
                     </Select>
-                    <Button onClick={()=>{localStorage.removeItem('token')
-                        window.location.reload()}} className="bg-red-500 text-white cursor-pointer">{language=='uz'?'Chiqish':'Выход'} <LuLogOut size={35} />
+                    <Button onClick={() => {
+                        localStorage.removeItem('token')
+                        window.location.reload()
+                    }} className="bg-red-500 text-white cursor-pointer">{t('auth')} <LuLogOut size={35} />
                     </Button>
                 </div>
             </div>
-            <Separator/>
+            <Separator />
         </div>
     );
 };
