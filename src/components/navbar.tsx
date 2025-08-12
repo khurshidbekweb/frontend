@@ -10,10 +10,8 @@ import { changeLanguage } from "@/i18n";
 type Language = 'uz' | 'ru' | 'en';
 
 const Navbar = () => {
-
     const { t } = useTranslation()
     const language = localStorage.getItem("language") || "uz";
-    console.log(language);
     const token = localStorage.getItem('token')
     const naviagte = useNavigate()
     useEffect(() => {

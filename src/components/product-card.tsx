@@ -19,12 +19,19 @@ const ProductCard = (product: productType) => {
 
 
             <div className="ml-5 space-x-2">
-                <Badge variant="default" className="bg-green-600 hover:bg-green-700">
-                    In Stock
-                </Badge>
+                {product.isActive ? <Badge variant="default" className="bg-green-600 text-white hover:bg-green-700">
+                    Active
+                </Badge> : <Badge variant="default" className="bg-red-500 text-white hover:bg-red-600">
+                    InActive
+                </Badge>}
+
                 <Badge variant="secondary" className="bg-blue-600 text-white hover:bg-blue-700">
-                    Electronics
+                    {product.category}
                 </Badge>
+                {product.stock > 0 && <Badge variant="default" className="bg-purple-600 hover:bg-purple-700">
+                    In Stock
+                </Badge>}
+
             </div>
 
             <CardFooter className="flex justify-between items-center">
