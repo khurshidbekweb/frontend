@@ -14,7 +14,6 @@ import { Button } from "./ui/button";
 const OrderDialog = () => {
     const order = useSelector((state: RootState) => state.basket.items)
 
-
     return (
         <Dialog>
             <DialogTrigger className="w-full bg-green-600 hover:bg-green-700 text-white p-2 rounded-xl cursor-pointer text-xl font-bold my-5">To Order</DialogTrigger>
