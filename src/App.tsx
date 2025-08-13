@@ -4,6 +4,8 @@ import Auth from "./pages/login";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import Home from "./pages/home";
+import FovaritePage from "./pages/favorites";
+import Basket from "./pages/basket";
 
 
 
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Auth />
+      },
+      {
+        path: 'favorites',
+        element: <FovaritePage />
+      },
+      {
+        path: 'basket',
+        element: <Basket />
       }
     ]
   }

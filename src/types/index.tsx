@@ -5,5 +5,6 @@ export interface productType {
     isActive: boolean,
     name: string,
     price: number,
-    stock: number
+    stock: number,
+    quantity?: number
 }

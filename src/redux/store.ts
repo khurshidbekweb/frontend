@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import basketHeartReducer from "./basketHeartSlice";
-
+import basketReducer from "./basketSlice";
+import favoritesReducer from "./fovatite";
 
 export const store = configureStore({
     reducer: {
-        basketHeart: basketHeartReducer
+        basket: basketReducer,
+        favorites: favoritesReducer
     }
-})
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
