@@ -1,8 +1,7 @@
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Separator } from "./ui/separator";
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LuLogOut } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "@/i18n";
@@ -13,13 +12,13 @@ type Language = 'uz' | 'ru' | 'en';
 const Navbar = () => {
     const { t } = useTranslation()
     const language = localStorage.getItem("language") || "uz";
-    const token = localStorage.getItem('token')
-    const naviagte = useNavigate()
-    useEffect(() => {
-        if (!token) {
-            naviagte('/')
-        }
-    }, [naviagte, token])
+    // const token = localStorage.getItem('token')
+    // const naviagte = useNavigate()
+    // useEffect(() => {
+    //     if (!token) {
+    //         naviagte('/')
+    //     }
+    // }, [naviagte, token])
 
     return (
         <div className="max-w-7xl mx-auto">

@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import BasketCard from "@/components/basket-card";
 import { Minus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import OrderDialog from "@/components/order-dialog";
 
 const Basket = () => {
     const basket = useSelector((state: RootState) => state.basket.items);
-
     const totalSum = basket.reduce((sum, item) => sum + (item.price || 0) * item.quantity, 0)
-    console.log(basket);
+
     return (
         <div className="max-w-7xl mx-auto">
             <h2 className="text-2xl font-bold my-5 text-amber-600">Basket</h2>
@@ -26,7 +25,7 @@ const Basket = () => {
                         <li className="flex justify-between items-center w-full text-xl font-bold">Taxes: <span className="font-semibold"><Minus /></span></li>
                         <hr />
                     </ul>
-                    <Button variant='default' className="w-full bg-green-600 hover:bg-green-700 text-white cursor-pointer text-xl font-bold my-5">To Order</Button>
+                    <OrderDialog />
                 </div>
             </div>
         </div>

@@ -15,10 +15,6 @@ const ProductCard = (product: productType) => {
 
     const isFavorite = (id: number) => favorites.some(item => item.id === id);
 
-
-    console.log(basket);
-    console.log(favorites);
-
     return (
         <Card className="w-[300px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow relative px-0 mx-auto">
             <CardHeader>
