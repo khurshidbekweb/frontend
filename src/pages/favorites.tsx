@@ -4,7 +4,6 @@ import ProductCard from "@/components/product-card";
 
 function FovaritePage() {
     const favorites = useSelector((state: RootState) => state.favorites.items);
-    console.log(favorites);
     return (
         <div className="max-w-7xl mx-auto">
             <h2 className="text-2xl font-bold my-5 text-amber-600">Favorites</h2>

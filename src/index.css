@@ -114,7 +114,20 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+hr {
+  border: none;
+  /* Remove default border */
+  border-top: 2px solid #ccc;
+  /* Create a solid top border */
+  width: 100%;
+  /* Set width */
+  margin: 5px auto;
+  /* Center the HR with margin */
 }
