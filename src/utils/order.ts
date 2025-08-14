@@ -12,9 +12,11 @@ interface orderType {
 }
 
 export const orderUtls = {
-    getOrder: async () => {
-        const { data } = await custimAxios.get("orders")
-        return data
+    getOrder: async ({ page = 0, size = 10 }) => {
+        const { data } = await custimAxios.get("orders", {
+            params: { page, size, sortBy: "id", sortDir: "asc" }
+        });
+        return data;
     },
     getOrderById: async (id: number) => {
         const { data } = await custimAxios.get(`orders/${id}`)
