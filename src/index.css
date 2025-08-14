@@ -131,3 +131,8 @@ hr {
   margin: 5px auto;
   /* Center the HR with margin */
 }
+
+.active {
+  background-color: blue;
+  color: white;
+}

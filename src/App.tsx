@@ -6,7 +6,10 @@ import { Toaster } from 'react-hot-toast'
 import Home from "./pages/home";
 import FovaritePage from "./pages/favorites";
 import Basket from "./pages/basket";
-
+import DashHome from "./pages/dashboart/dash-home";
+import DashLayout from "./layout/dash-layout";
+import Products from "./pages/dashboart/product";
+import UserOrder from "./pages/dashboart/user-order";
 
 
 const router = createBrowserRouter([
@@ -16,10 +19,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
-      },
-      {
-        path: 'dashboard',
         element: <Home />
       },
       {
@@ -33,7 +32,25 @@ const router = createBrowserRouter([
       {
         path: 'basket',
         element: <Basket />
-      }
+      },
+      {
+        path: 'dashboard',
+        element: <DashLayout />,
+        children: [
+          {
+            index: true,
+            element: <DashHome />
+          },
+          {
+            path: 'order',
+            element: <UserOrder />
+          },
+          {
+            path: 'product',
+            element: <Products />
+          }
+        ]
+      },
     ]
   }
 ])

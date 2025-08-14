@@ -1,24 +1,25 @@
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Separator } from "./ui/separator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuLogOut } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "@/i18n";
 import { Heart, ShoppingCart } from "lucide-react";
+import { useEffect } from "react";
 
 type Language = 'uz' | 'ru' | 'en';
 
 const Navbar = () => {
     const { t } = useTranslation()
     const language = localStorage.getItem("language") || "uz";
-    // const token = localStorage.getItem('token')
-    // const naviagte = useNavigate()
-    // useEffect(() => {
-    //     if (!token) {
-    //         naviagte('/')
-    //     }
-    // }, [naviagte, token])
+    const token = localStorage.getItem('token')
+    const naviagte = useNavigate()
+    useEffect(() => {
+        if (!token) {
+            naviagte('/')
+        }
+    }, [naviagte, token])
 
     return (
         <div className="max-w-7xl mx-auto">
@@ -47,11 +48,11 @@ const Navbar = () => {
                             </Button>
                         </Link>
                     </div>
-                    <Button onClick={() => {
-                        localStorage.removeItem('token')
-                        window.location.reload()
-                    }} className="bg-red-500 text-white cursor-pointer">{t('auth')} <LuLogOut size={35} />
-                    </Button>
+
+                    <Link to="/register">
+                        <Button className="bg-red-500 text-white cursor-pointer">{t('auth')} <LuLogOut size={35} />
+                        </Button>
+                    </Link>
                 </div>
             </div>
             <Separator />
