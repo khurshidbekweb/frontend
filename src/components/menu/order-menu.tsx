@@ -9,9 +9,10 @@ import {
 import { Order } from "@/types";
 import { orderUtls } from "@/utils/order";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { EllipsisVertical, Trash } from "lucide-react";
+import { EllipsisVertical, PenIcon, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import EditOrder from "../dialog/edit-order";
+import { useState } from "react";
 
 
 interface OrderCardProps {
@@ -20,6 +21,7 @@ interface OrderCardProps {
 
 const OrderMenu = ({ order }: OrderCardProps) => {
     const queryClient = useQueryClient()
+    const [open, setOpen] = useState(false)
 
     const orderDelete = useMutation({
         mutationFn: orderUtls.deleteOrder,
@@ -33,15 +35,21 @@ const OrderMenu = ({ order }: OrderCardProps) => {
     })
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger><EllipsisVertical /></DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuLabel>Order action</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem><EditOrder id={order.id} status={order.status} /></DropdownMenuItem>
-                <DropdownMenuItem onClick={() => orderDelete.mutate(order.id)}><Trash /> Delete</DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+
+        <>
+            <DropdownMenu key={String(open)}>
+                <DropdownMenuTrigger><EllipsisVertical /></DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuLabel>Order action</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => setOpen(true)}><PenIcon /> Edit order </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => orderDelete.mutate(order.id)}><Trash /> Delete</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+
+            <EditOrder id={order.id} status={order.status} open={open} setOpen={setOpen} />
+        </>
+
     );
 };
 

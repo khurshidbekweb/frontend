@@ -4,25 +4,27 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Button } from "../ui/button";
-import { PenIcon } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { orderUtls } from "@/utils/order";
 import toast from "react-hot-toast";
 
 interface orderProps {
     id: number,
-    status: string
+    status: string,
+    open: boolean,
+    setOpen: (open: boolean) => void
 }
 
-const EditOrder = ({ id, status }: orderProps) => {
-    const [open, setOpen] = useState(false)
+const EditOrder = ({ id, status, open, setOpen }: orderProps) => {
+
     const orderStatus = ['PENDING', 'PROCESSING', 'COMPLETED']
     const [editStatus, setStatus] = useState(status)
+    console.log(status);
+
     const queryClient = useQueryClient()
     const statusFn = useMutation({
         mutationFn: orderUtls.putOrder,
@@ -33,6 +35,7 @@ const EditOrder = ({ id, status }: orderProps) => {
         onError: (err) => {
             console.log(err);
             toast.error('Something went wrong')
+            setTimeout(() => setOpen(false), 500)
         }
     })
 
@@ -45,7 +48,6 @@ const EditOrder = ({ id, status }: orderProps) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger onClick={() => setOpen(true)} className="w-full rounded-sm text-center cursor-pointer flex items-center gap-1"><PenIcon /> Edit status</DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Add Procut 🧡</DialogTitle>
@@ -53,7 +55,7 @@ const EditOrder = ({ id, status }: orderProps) => {
                     </DialogDescription>
                 </DialogHeader>
 
-                <Select defaultValue={editStatus} onValueChange={value => setStatus(value)}>
+                <Select defaultValue={status} onValueChange={value => setStatus(value)}>
                     <SelectTrigger className="w-full">
                         <SelectValue placeholder="Choose product status" />
                     </SelectTrigger>
