@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog"
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const OrderDialog = () => {
     const order = useSelector((state: RootState) => state.basket.items)

@@ -11,9 +11,11 @@ interface productType {
 }
 
 export const productUtils = {
-    getProducts: async () => {
-        const { data } = await custimAxios.get('products')
-        return data
+    getProducts: async ({ page = 0, size = 10 }) => {
+        const { data } = await custimAxios.get("products", {
+            params: { page, size, sortBy: "id", sortDir: "asc" }
+        });
+        return data;
     },
     getProductById: async (id: number) => {
         const { data } = await custimAxios.get(`products/${id}`)
