@@ -21,9 +21,8 @@ interface orderProps {
 
 const EditOrder = ({ id, status, open, setOpen }: orderProps) => {
 
-    const orderStatus = ['PENDING', 'PROCESSING', 'COMPLETED']
+    const orderStatus = ['PENDING', 'CONFIRMED', 'SHIPPED']
     const [editStatus, setStatus] = useState(status)
-    console.log(status);
 
     const queryClient = useQueryClient()
     const statusFn = useMutation({
@@ -31,11 +30,12 @@ const EditOrder = ({ id, status, open, setOpen }: orderProps) => {
         onSuccess: () => {
             toast.success("Success changet order status")
             queryClient.invalidateQueries({ queryKey: ['orders'] })
+            setOpen(false)
         },
         onError: (err) => {
             console.log(err);
             toast.error('Something went wrong')
-            setTimeout(() => setOpen(false), 500)
+
         }
     })
 

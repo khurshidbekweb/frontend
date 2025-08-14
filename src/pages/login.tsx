@@ -9,19 +9,19 @@ const Login = () => {
     const [register, setRegister] = useState<"login" | 'register'>('login');
 
 
-    const login = useMutation({
-        mutationFn: authUtils.login,
-        onSuccess: () => {
-            toast.success('Muvaffaqiyatli kirildi ✅')
-            setTimeout(() => {
-                navigate('/dashboard')
-            }, 1000)
-        },
-        onError: (err) => {
-            console.log(err);
-            toast.error('Login yoki parolda xatolik ❌ ')
-        }
-    })
+    // const login = useMutation({
+    //     mutationFn: authUtils.login,
+    //     onSuccess: () => {
+    //         toast.success('Muvaffaqiyatli kirildi ✅')
+    //         setTimeout(() => {
+    //             navigate('/dashboard')
+    //         }, 1000)
+    //     },
+    //     onError: (err) => {
+    //         console.log(err);
+    //         toast.error('Login yoki parolda xatolik ❌ ')
+    //     }
+    // })
 
     const registerFn = useMutation({
         mutationFn: authUtils.register,
@@ -65,7 +65,6 @@ const Login = () => {
             password: form.password.value,
             email: form.email.value
         })
-        console.log(login.variables);
     }
 
     return (

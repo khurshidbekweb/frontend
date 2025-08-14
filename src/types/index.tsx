@@ -23,7 +23,7 @@ export interface Order {
     customerName: string;
     customerEmail: string;
     orderDate: string;
-    status: "PENDING" | "PROCESSING" | "COMPLETED" | "CANCELLED";
+    status: "PENDING" | "CONFIRMED" | "CANCELLED" | "SHIPPED";
     totalAmount: number;
     orderItems: OrderItem[];
 }

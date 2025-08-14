@@ -34,6 +34,8 @@ const OrderMenu = ({ order }: OrderCardProps) => {
         }
     })
 
+    const cancel = order.status === 'CANCELLED' || order.status === 'CONFIRMED'
+
     return (
 
         <>
@@ -43,7 +45,7 @@ const OrderMenu = ({ order }: OrderCardProps) => {
                     <DropdownMenuLabel>Order action</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => setOpen(true)}><PenIcon /> Edit order </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => orderDelete.mutate(order.id)}><Trash /> Delete</DropdownMenuItem>
+                    <DropdownMenuItem disabled={cancel} onClick={() => orderDelete.mutate(order.id)}><Trash /> Delete</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
 

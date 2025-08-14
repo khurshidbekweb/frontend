@@ -6,16 +6,4 @@ const custimAxios = axios.create({
     timeout: 10000
 });
 
-
-
-custimAxios.interceptors.response.use(
-    (res) => res,
-    (err) => {
-        if (err?.response?.status === 406) {
-            window.location.reload()
-        }
-        return Promise.reject(err);
-    }
-);
-
 export default custimAxios;

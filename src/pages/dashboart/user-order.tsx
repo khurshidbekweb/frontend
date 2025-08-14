@@ -15,7 +15,6 @@ const UserOrder = () => {
         queryFn: () => orderUtls.getOrder({ page, size }),
     });
 
-    console.log(orders);
     if (isLoading) return <p>Loading...</p>;
 
     const totalPages = orders?.data?.totalPages || 0;

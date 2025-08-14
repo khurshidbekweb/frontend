@@ -25,9 +25,6 @@ const OrderDialog = () => {
     const [email, setEmail] = useState('')
     const orderItems = orders.map((order: productType) => ({ productId: order?.id, quantity: order?.quantity ?? 0 }))
 
-    console.log(orderItems);
-
-
 
 
     const orderMutation = useMutation({

@@ -21,7 +21,6 @@ const EditProduct = (product: productType) => {
     const [formData, setFormData] = useState({ name: product.name, price: product.price, stock: product.stock, category: product.category, isActive: product.isActive });
 
     const queryClient = useQueryClient()
-    console.log(product);
 
     const editProduct = useMutation({
         mutationFn: productUtils.putProduct,
