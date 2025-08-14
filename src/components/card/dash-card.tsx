@@ -74,7 +74,7 @@ const DashboartCard = (product: productType) => {
             </div>
 
             <div className="flex px-6 justify-between items-center gap-2">
-                <EditProduct />
+                <EditProduct {...product} />
                 <DeleteRquest fn={deleteProduct.mutate} id={product.id} />
             </div>
 
