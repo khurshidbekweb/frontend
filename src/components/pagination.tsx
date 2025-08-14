@@ -15,7 +15,7 @@ interface PaginationControlsProps {
 
 export default function PaginationControls({ page, setPage, totalPages }: PaginationControlsProps) {
     return (
-        <Pagination className="mt-5">
+        <Pagination className="my-5">
             <PaginationContent>
                 {/* Previous */}
                 <PaginationItem>

@@ -1,6 +1,6 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import { Heart, Minus, Plus, X } from "lucide-react";
 import { productType } from "@/types";
 import { useDispatch, useSelector } from "react-redux";

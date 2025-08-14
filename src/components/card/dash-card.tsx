@@ -1,19 +1,39 @@
 import { Heart } from 'lucide-react';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { productType } from '@/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
 import { toggleFavorite } from '@/redux/fovatite';
 import { addToBasket } from '@/redux/basketSlice';
+import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
+import EditProduct from '../dialog/edit-product';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { productUtils } from '@/utils/product';
+import toast from 'react-hot-toast';
+import DeleteRquest from '../dialog/request-dialog';
 
-const ProductCard = (product: productType) => {
+const DashboartCard = (product: productType) => {
     const dispatch = useDispatch<AppDispatch>();
     const basket = useSelector((state: RootState) => state.basket.items);
     const favorites = useSelector((state: RootState) => state.favorites.items);
-
+    const queryClient = useQueryClient()
     const isFavorite = (id: number) => favorites.some(item => item.id === id);
+
+
+    const deleteProduct = useMutation({
+        mutationFn: productUtils.deleteProduct,
+        onSuccess: () => {
+            toast.success('O`chirildi')
+            queryClient.invalidateQueries({ queryKey: ['products'] })
+        },
+        onError: (err) => {
+            console.log(err);
+            toast.error('Xatolik')
+        }
+    })
+
 
     return (
         <Card className="w-[300px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow relative px-0 mx-auto">
@@ -49,15 +69,20 @@ const ProductCard = (product: productType) => {
                 </Button>
             </CardFooter>
 
-            <div className="px-6 pb-4 text-xs text-gray-400 text-right">
+            <div className="px-6 text-xs text-gray-400 text-right">
                 {formatAddedDate(product.createdAt)}
+            </div>
+
+            <div className="flex px-6 justify-between items-center gap-2">
+                <EditProduct />
+                <DeleteRquest fn={deleteProduct.mutate} id={product.id} />
             </div>
 
         </Card>
     );
 };
 
-export default ProductCard;
+export default DashboartCard;
 
 function formatAddedDate(isoString: string): string {
     const date = new Date(isoString);

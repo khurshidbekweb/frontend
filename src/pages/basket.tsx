@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import BasketCard from "@/components/basket-card";
 import { Minus } from "lucide-react";
 import OrderDialog from "@/components/dialog/order-dialog";
+import BasketCard from "@/components/card/basket-card";
 
 const Basket = () => {
     const basket = useSelector((state: RootState) => state.basket.items);

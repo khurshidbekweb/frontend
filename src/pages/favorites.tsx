@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import ProductCard from "@/components/product-card";
+import ProductCard from "@/components/card/product-card";
 
 function FovaritePage() {
     const favorites = useSelector((state: RootState) => state.favorites.items);

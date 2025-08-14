@@ -1,6 +1,6 @@
+import DashboartCard from "@/components/card/dash-card";
 import AddProduct from "@/components/dialog/add-product";
 import PaginationControls from "@/components/pagination";
-import ProductCard from "@/components/product-card";
 import { productType } from "@/types";
 import { productUtils } from "@/utils/product";
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +30,7 @@ const Products = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-3 mt-5">
-                {products?.success && products?.data.content.map((item: productType) => (<ProductCard {...item} key={item.id} />))}
+                {products?.success && products?.data.content.map((item: productType) => (<DashboartCard {...item} key={item.id} />))}
             </div>
 
             <PaginationControls
